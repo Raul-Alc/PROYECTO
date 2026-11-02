@@ -1,4 +1,4 @@
-///usr/bin/env jbang "$0" "$@" ; exit $?
+//usr/bin/env jbang "$0" "$@" ; exit $?
 //JAVA 25+
 
 // ============================================================================
@@ -273,7 +273,129 @@ String RST = "\u001B[0m";   // RESET
 // ----------------------------------------------------------------------------
 
         void menuClients() {
-            avis("Mòdul de Clients pendent d'implementar (Etapa 1 · Tasca 1).");
+            while (true) {
+                capcalera(GRN, "👥  MÒDUL DE GESTIÓ DE CLIENTS");
+                llistarClients("");
+                nota("Total de clients registrats: " + clientCount + " / " + maxClients);
+
+                opcio("Cercar client per ID, nom, correu o telèfon (INTRO per a tornar)");
+                String entrada = scanner.nextLine().trim();
+                if (entrada.isEmpty()) return;
+
+                // Coincidència exacta amb algun camp del client
+                int idx = -1;
+                for (int i = 0; i < clientCount && idx == -1; i++) {
+                    if (entrada.equalsIgnoreCase(clientNoms[i]) || entrada.equalsIgnoreCase(clientEmails[i])
+                            || entrada.equals(clientTelefons[i]) || entrada.equals("" + clientIds[i])
+                            || entrada.equals("#" + clientIds[i])) {
+                        idx = i;
+                    }
+                }
+
+                if (idx != -1) {
+                    gestionarClient(idx);
+                } else {
+                    titol("COINCIDÈNCIES PARCIALS AMB '" + entrada + "'");
+                    llistarClients(entrada);
+                    avis("Cap client coincideix exactament amb '" + entrada + "'.");
+                    pregunta("Vols donar d'alta un nou client amb aquest nom? [s/N]");
+                    String confirmacio = scanner.nextLine().trim().toUpperCase();
+                    if (confirmacio.startsWith("S")) donarAltaClient(entrada);
+                }
+            }
+        }
+
+        // Mostra els clients que contenen el text 'filtre' en algun camp ("" = tots)
+        void llistarClients(String filtre) {
+            String[][] files = new String[clientCount][];
+            int n = 0;
+            for (int i = 0; i < clientCount; i++) {
+                String text = "#" + clientIds[i] + " " + clientNoms[i] + " " + clientEmails[i] + " " + clientTelefons[i];
+                if (text.toLowerCase().contains(filtre.toLowerCase())) {
+                    String estat = clientActius[i] ? BADGE_ACTIU : BADGE_BAIXA;
+                    files[n] = new String[]{"#" + clientIds[i], clientNoms[i], clientEmails[i], clientTelefons[i], estat};
+                    n++;
+                }
+            }
+            mostrarTaula(
+                    new String[]{"ID", "NOM DEL CLIENT", "CORREU ELECTRÒNIC", "TELÈFON", "ESTAT"},
+                    new int[]{6, 24, 26, 12, 10},
+                    files,
+                    n
+            );
+        }
+
+        void gestionarClient(int idx) {
+            titol("FITXA DEL CLIENT");
+            dada("ID", "#" + clientIds[idx]);
+            dada("Nom", clientNoms[idx]);
+            dada("Correu", clientEmails[idx]);
+            dada("Telèfon", clientTelefons[idx]);
+            dada("Estat", clientActius[idx] ? BADGE_ACTIU : BADGE_BAIXA);
+
+            titol("HISTORIAL DE COMPRES DE " + clientNoms[idx].toUpperCase());
+            llistarVendes(clientIds[idx], -1, "");
+
+            opcio("Tria una acció [M: Modificar dades, E: Donar de baixa, INTRO: Tornar]");
+            String accio = scanner.nextLine().trim().toUpperCase();
+            switch (accio) {
+                case "M" -> modificarClient(idx);
+                case "E" -> eliminarClient(idx);
+                case "" -> { }
+                default -> avis("Acció no reconeguda. Tornant a la llista de clients.");
+            }
+        }
+
+        void modificarClient(int idx) {
+            titol("MODIFICACIÓ DEL CLIENT #" + clientIds[idx]);
+            nota("Prem INTRO sense escriure res per a mantindre el valor actual");
+
+            pregunta("Nou nom [" + clientNoms[idx] + "]");
+            String nom = scanner.nextLine().trim();
+            if (nom.length() >= 3) clientNoms[idx] = nom;
+            else if (!nom.isEmpty()) error("El nom ha de contindre almenys 3 caràcters. Es manté l'anterior.");
+
+            pregunta("Nou correu [" + clientEmails[idx] + "]");
+            String email = scanner.nextLine().trim().toLowerCase();
+            if (email.contains("@") && email.contains(".")) clientEmails[idx] = email;
+            else if (!email.isEmpty()) error("Format de correu incorrecte. Es manté l'anterior.");
+
+            pregunta("Nou telèfon [" + clientTelefons[idx] + "]");
+            String telefon = scanner.nextLine().trim();
+            if (!telefon.isEmpty()) clientTelefons[idx] = telefon;
+
+            ok("Dades del client #" + clientIds[idx] + " actualitzades correctament.");
+        }
+
+        void eliminarClient(int idx) {
+            pregunta("Confirmes que vols donar de baixa el client '" + clientNoms[idx] + "'? [s/N]");
+            String confirmacio = scanner.nextLine().trim().toUpperCase();
+            if (confirmacio.startsWith("S")) {
+                clientActius[idx] = false;
+                ok("Client #" + clientIds[idx] + " donat de baixa correctament.");
+            } else {
+                avis("Operació cancel·lada. No s'han fet canvis.");
+            }
+        }
+
+        void donarAltaClient(String nom) {
+            if (clientCount >= maxClients) { error("S'ha assolit la capacitat màxima de clients (" + maxClients + ")."); return; }
+
+            titol("REGISTRE DE NOU CLIENT");
+            pregunta("Nom complet del client [" + nom + "]");
+            String nouNom = scanner.nextLine().trim();
+            if (!nouNom.isEmpty()) nom = nouNom;
+            if (nom.length() < 3) { error("El nom ha de contindre almenys 3 caràcters."); return; }
+
+            pregunta("Correu electrònic");
+            String email = scanner.nextLine().trim().toLowerCase();
+            if (!email.contains("@") || !email.contains(".")) { error("Format de correu incorrecte (ha de contindre '@' i '.')."); return; }
+
+            pregunta("Telèfon de contacte");
+            String telefon = scanner.nextLine().trim();
+            // ADAPTACIÓ MÍNIMA: substitueix el 0 pel càlcul de l'ID correlatiu (101 + clientCount)
+            afegirClient(101 + clientCount, nom, email, telefon, true);
+            ok("Client registrat correctament amb l'identificador #" + clientIds[clientCount - 1]);
         }
 
 // ----------------------------------------------------------------------------
