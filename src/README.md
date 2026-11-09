@@ -4,7 +4,7 @@
 ![Aplicació de consola](https://img.shields.io/badge/Aplicaci%C3%B3-consola-4EAA25)
 ![Interfície ANSI](https://img.shields.io/badge/Interf%C3%ADcie-ANSI%20%2F%20Unicode-blue)
 ![Dependències](https://img.shields.io/badge/depend%C3%A8ncies-0-brightgreen)
-![1º DAM · FP Superior](https://img.shields.io/badge/1º-DAM%20%C2%B7%20FP%20Superior-e08?labelColor=4C4C4C&style=flat)   
+![1º DAM · FP Superior](https://img.shields.io/badge/1%C2%BA-DAM%20%C2%B7%20FP%20Superior-e08?labelColor=4C4C4C&style=flat)   
 ---
 
 ## ✨ Funcionalitats principals
