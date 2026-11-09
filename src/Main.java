@@ -106,7 +106,6 @@ String RST = "\u001B[0m";   // RESET
                 }
             }
         }
-
         void mostrarCapcaleraPrincipal() {
             println();
             println(CYN + BLD + "╭" + EMP + "─────────────────────────────────────────────────────────────────────────────" + EMP + "╮" + RST);

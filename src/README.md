@@ -1,48 +1,27 @@
 # 🛒 TechShop
 
-`Java 25` · `Aplicació de consola` · `Interfície ANSI / Unicode` · `0 dependències` · `1r FP Informàtica`
-
-**TechShop** és una aplicació interactiva de consola per a gestionar una botiga d'informàtica i tecnologia (plataforma de comerç electrònic). Està dissenyada per a l'alumnat de **1r de FP d'Informàtica** i es construeix exclusivament amb tipus primitius, `String`, **vectors paral·lels** i **classes implícites de Java 25** (sense declaració de `class`), sense dependències externes ni frameworks.
-
-Tot el programa viu en un únic fitxer, `projecte/Main.java`, i s'ha dissenyat per etapes: la interfície i l'estructura de dades ja estan implementades, i els mòduls de gestió es completen en les etapes següents.
-
+![Java 25](https://img.shields.io/badge/Java-25-ED8B00?logo=openjdk&logoColor=white)
+![Aplicació de consola](https://img.shields.io/badge/Aplicaci%C3%B3-consola-4EAA25)
+![Interfície ANSI](https://img.shields.io/badge/Interf%C3%ADcie-ANSI%20%2F%20Unicode-blue)
+![Dependències](https://img.shields.io/badge/depend%C3%A8ncies-0-brightgreen)
+![1º DAM · FP Superior](https://img.shields.io/badge/1º-DAM%20%C2%B7%20FP%20Superior-e08?labelColor=4C4C4C&style=flat)   
 ---
 
 ## ✨ Funcionalitats principals
 
-| Funcionalitat | Descripció | Estat |
-|---|---|---|
-| 👥 **Gestió de clients** | Directori interactiu, cerca per qualsevol camp (ID, nom, correu o telèfon), fitxa amb historial de compres, alta, modificació i baixa lògica (`ACTIU` / `BAIXA`). | 🚧 Etapa 1 · Tasca 1 |
-| 📦 **Catàleg i estoc** | Llistat amb barra visual d'estoc i etiquetes (`EN ESTOC`, `BAIX`, `ESGOTAT`), cerca per ID, nom o categoria, alta, modificació, reposició i eliminació física. | 🚧 Etapa 2 · Tasques 5 i 6 |
-| 💳 **Vendes i facturació** | Targetes d'estadístiques (`Math.max`, `Math.min`, mitjana i total), historial, cerca, registre de venda amb descompte d'estoc i emissió de tiquet amb codi aleatori (`Random`). | 🚧 Etapa 3 · Tasques 9 a 12 |
-| 💾 **Persistència de dades** | Lectura automàtica en iniciar i guardat manual en `projecte/dades_botiga.txt` amb `Files.readString` i `Files.writeString`. | 🚧 Etapa 4 · Tasques 13 a 16 |
-| 🎨 **Interfície ANSI** | Taules Unicode (`╭─┬─╮`), targetes KPI i missatges amb colors (`ok`, `error`, `avis`…) definits en una paleta ANSI única i aplicats als mètodes d'interfície. | ✅ Implementada |
-
-**Estat actual:** en entrar a un mòdul pendent, l'aplicació mostra un avís d'«implementació pendent». Ja funcionen el panell principal, les targetes de resum, les cerques per identificador (`cercarIndexClientPerId`, `cercarIndexProductePerId`) i l'alta d'elements als vectors.
-
-**Dades de demostració:** en iniciar, es carreguen 4 clients, 5 productes (88 unitats en estoc) i 2 vendes (799,49 € facturats).
+| Funcionalitat | Descripció |
+|---|---|
+| 👥 **Gestió de clients** | Directori interactiu, cerca per qualsevol camp (ID, nom, correu o telèfon), fitxa amb historial de compres, alta, modificació i baixa lògica (`ACTIU` / `BAIXA`). |
+| 📦 **Catàleg i estoc** | Llistat amb barra visual d'estoc i etiquetes (`EN ESTOC`, `BAIX`, `ESGOTAT`), cerca per ID, nom o categoria, alta, modificació, reposició i eliminació física. |
+| 💳 **Vendes i facturació** | Targetes d'estadístiques (`Math.max`, `Math.min`, mitjana i total), historial, cerca, registre de venda amb descompte d'estoc i emissió de tiquet amb codi aleatori (`Random`). |
+| 💾 **Persistència de dades** | Lectura automàtica en iniciar i guardat manual en `projecte/dades_botiga.txt` amb `Files.readString` i `Files.writeString`. |
+| 🎨 **Interfície ANSI** | Taules Unicode (`╭─┬─╮`), targetes KPI i missatges amb colors definits en una paleta ANSI única i aplicats als mètodes d'interfície. |
 
 ---
 
 ## 🖥️ Vistes de l'aplicació
 
-Eixida real de `java projecte/Main.java` en iniciar. A la terminal es veu amb colors ANSI; ací es mostra sense colors.
-
-### Capçalera
-
-```text
-╭─────────────────────────────────────────────────────────────────────────────╮
-│   ████████╗███████╗ ██████╗██╗  ██╗   ███████╗██╗  ██╗ ██████╗ ██████╗      │
-│   ╚══██╔══╝██╔════╝██╔════╝██║  ██║   ██╔════╝██║  ██║██╔═══██╗██╔══██╗     │
-│      ██║   █████╗  ██║     ███████║   ███████╗███████║██║   ██║██████╔╝     │
-│      ██║   ██╔══╝  ██║     ██╔══██║   ╚════██║██╔══██║██║   ██║██╔═══╝      │
-│      ██║   ███████╗╚██████╗██║  ██║   ███████║██║  ██║╚██████╔╝██║          │
-│      ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝   ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝          │
-│                                                                             │
-│     🛍️   P L A T A F O R M A   D E   C O M E R Ç   E L E C T R Ò N I C       │
-│          Gestió de Clients · Catàleg d'Estoc · Facturació de Vendes         │
-╰─────────────────────────────────────────────────────────────────────────────╯
-```
+Eixida de `java projecte/Main.java` (panell de control principal). A la terminal es veu amb colors ANSI; ací es mostra sense colors.
 
 ### Targetes de resum
 
@@ -53,9 +32,7 @@ Eixida real de `java projecte/Main.java` en iniciar. A la terminal es veu amb co
 ╰────────────────────╯  ╰────────────────────╯  ╰────────────────────╯  ╰────────────────────╯
 ```
 
-> El separador decimal de l'import depén de la configuració regional del sistema (`799.49 €` o `799,49 €`).
-
-### Panell de control principal (taula del menú)
+### Taula del menú
 
 ```text
 ✦ PANELL DE CONTROL PRINCIPAL ✦
@@ -73,14 +50,6 @@ Eixida real de `java projecte/Main.java` en iniciar. A la terminal es veu amb co
 ➤ Tria una opció [1-5]:
 ```
 
-### Eixida de l'aplicació (opció 5)
-
-```text
-╭─────────────────────────────────────────────────────────────────────────────╮
-│✔ Sessió finalitzada amb èxit! Gràcies per utilitzar la Botiga en Línia.     │
-╰─────────────────────────────────────────────────────────────────────────────╯
-```
-
 ---
 
 ## 🚀 Execució ràpida
@@ -92,34 +61,32 @@ Eixida real de `java projecte/Main.java` en iniciar. A la terminal es veu amb co
 
 ### Execució
 
-Des de l'arrel del repositori (la ruta del fitxer de dades, `projecte/dades_botiga.txt`, és relativa a aquest directori):
+Des de l'arrel del repositori:
 
 ```
 java projecte/Main.java
 ```
 
-El fitxer inclou la capçalera de [JBang](https://www.jbang.dev/), de manera que també es pot executar amb `jbang projecte/Main.java`.
-
 ---
 
 ## 📚 Documentació
 
-La documentació està organitzada segons el públic al qual s'adreça:
+La documentació s'organitza per a **quatre públics**. L'índex complet està a [`docs/README.md`](docs/README.md).
 
 | Públic | Què necessita | On començar |
 |---|---|---|
-| 🧑‍💼 **Usuari / botiguer** | Aprendre a utilitzar l'aplicació | [Guia d'usuari](docs/user-guide.md) |
-| 🧑‍🎓 **Alumnat i desenvolupadors** | Entendre el disseny, les dades i el codi | [Arquitectura](docs/architecture/overview.md) · [API](docs/api/README.md) |
-| 🤝 **Col·laboradors** | Contribuir al projecte | [Guia de contribució](CONTRIBUTING.md) |
-| 🛠️ **Administració i suport** | Instal·lar, desplegar i resoldre incidències | [Instal·lació](docs/installation.md) · [Desplegament](docs/deployment.md) · [Resolució de problemes](docs/troubleshooting.md) |
+| 👤 **Usuaris** | Aprendre a utilitzar l'aplicació | [Manual d'usuari](docs/user-guide.md) |
+| 💻 **Desenvolupadors** | Entendre el disseny, les dades i els mètodes | [Arquitectura](docs/architecture/overview.md) · [Model de dades](docs/architecture/data-model.md) · [Diagrames](docs/architecture/diagrams.md) · [API](docs/api/README.md) |
+| 👥 **Col·laboradors** | Contribuir al projecte | [Guia de contribució](CONTRIBUTING.md) |
+| 🚀 **Desplegament** | Instal·lar, desplegar i resoldre incidències | [Instal·lació](docs/installation.md) · [Desplegament](docs/deployment.md) · [Resolució de problemes](docs/troubleshooting.md) |
 
 ### Elements documentals
 
-| # | Element | Contingut | Enllaços |
+| # | Element | Contingut | Document |
 |---|---|---|---|
-| 1 | 📖 **Guia d'usuari** | Ús de l'aplicació pas a pas | [`docs/user-guide.md`](docs/user-guide.md) |
-| 2 | 🏗️ **Arquitectura** | Visió general, model de dades i diagrames | [`overview.md`](docs/architecture/overview.md) · [`data-model.md`](docs/architecture/data-model.md) · [`diagrams.md`](docs/architecture/diagrams.md) |
-| 3 | 🔌 **Referència de l'API** | Mètodes i funcions del codi | [`docs/api/README.md`](docs/api/README.md) |
-| 4 | 🤝 **Contribució** | Normes per a col·laborar | [`CONTRIBUTING.md`](CONTRIBUTING.md) |
-| 5 | ⚙️ **Instal·lació i desplegament** | Preparar l'entorn i posar-lo en marxa | [`installation.md`](docs/installation.md) · [`deployment.md`](docs/deployment.md) |
-| 6 | 🩺 **Resolució de problemes** | Errors habituals i solucions | [`docs/troubleshooting.md`](docs/troubleshooting.md) |
+| 1 | 📄 **Descripció del projecte** | Objectiu, funcionalitats, vistes i execució | [`README.md`](README.md) (aquest document) |
+| 2 | 📖 **Manual d'usuari** | Ús pas a pas de cada pantalla | [`docs/user-guide.md`](docs/user-guide.md) |
+| 3 | 🏛️ **Arquitectura i model de dades** | Organització del codi, vectors paral·lels i diagrames | [`overview.md`](docs/architecture/overview.md) · [`data-model.md`](docs/architecture/data-model.md) · [`diagrams.md`](docs/architecture/diagrams.md) |
+| 4 | 📚 **Referència de mètodes (API)** | Mètodes de `Main.java` agrupats per mòdul | [`docs/api/README.md`](docs/api/README.md) |
+| 5 | 🤝 **Guia de contribució** | Normes de codi, branques i *pull requests* | [`CONTRIBUTING.md`](CONTRIBUTING.md) |
+| 6 | 🚢 **Instal·lació, desplegament i problemes** | Requisits, execució a l'aula i errors freqüents | [`installation.md`](docs/installation.md) · [`deployment.md`](docs/deployment.md) · [`troubleshooting.md`](docs/troubleshooting.md) |
